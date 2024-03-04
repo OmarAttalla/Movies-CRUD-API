@@ -48,6 +48,21 @@ func deleteMovie(w http.ResponseWriter, r *http.Request){
 	json.NewEncoder(w).Encode(movies)
 } 
 
+// The function below returns a single movie from
+// the movies slice. The movie to  be returned is  
+// picked  by the movie id in the user's  request
+
+func getMovie(w http.ResponseWriter, r *http.Request){
+	w.Header().Set("Content-Type", "application/json")
+	params:= mux.Vars(r)
+	for _, item := range movies{
+		if item.ID == params["id"]{
+			json.NewEncoder(w).Encode(item)
+			return
+		}
+	}
+} 
+
 
 func main(){
 	r := mux.NewRouter()
