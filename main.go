@@ -24,10 +24,30 @@ type director struct{
 
 var movies []movie
 
+//The function below converts the incoming 
+//json formatted content into the "movie" struct format
 func getMovies (w http.ResponseWriter, r *http.Request){
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(movies)
 }
+
+
+// The function below deletes elements from the 
+// movies slice by appending all entries after the 
+// entery, which is to be deleted, onto the current index  of 
+// the  entery to  be deleted and  therefore, well... deleting it.
+func deleteMovie(w http.ResponseWriter, r *http.Request){
+	w.Header().Set("Content-Type", "application/json")
+	params:= mux.Vars(r)
+	for index, item := range movies{
+		if item.ID == params["id"]{
+			movies = append(movies[:index], movies[index+1:]...)
+			break
+		}
+	}
+	json.NewEncoder(w).Encode(movies)
+} 
+
 
 func main(){
 	r := mux.NewRouter()
