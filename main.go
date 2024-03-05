@@ -1,6 +1,6 @@
 package main
 
-import{
+import(
 	"fmt"
 	"log"
 	"encoding/json"
@@ -8,7 +8,7 @@ import{
 	"net/http"
 	"strconv"
 	"github.com/gorilla/mux"
-}
+)
 
 type movie struct{
 	id string `json:  "id"`
