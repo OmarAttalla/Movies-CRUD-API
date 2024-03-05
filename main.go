@@ -72,6 +72,25 @@ func createMovie(w http.ResponseWriter, r *http.Request){
 	json.NewEncoder(w).Encode(myMovie)
 }
 
+//The function below deletes a movie and then adds
+//and replaces it with a movie, which the user 
+//specifies by the movie ID
+
+func updateMovie(w http.ResponseWriter, r *http.Request){
+	w.Header().Set("Content-Type", "application/json")
+	params := mux.Vars(r)
+	for index, item  := range movies{
+		if item.ID == params["id"]{
+			movies = append(movies[:index], movies[index+1]...)
+			var newMovie movie
+			_=json.NewDecoder(r.Body).Decode(&movie)
+			movie.ID = params["id"]
+			movies  = append(movies, newMovie)
+			json.NewEncoder(w).Encode(movie)
+		}
+	}
+}
+
 func main(){
 	r := mux.NewRouter()
 
