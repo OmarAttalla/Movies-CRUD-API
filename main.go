@@ -61,6 +61,7 @@ func getMovie(w http.ResponseWriter, r *http.Request){
 			return
 		}
 	}
+<<<<<<< HEAD
 } 
 
 func createMovie(w http.ResponseWriter, r *http.Request){
@@ -90,6 +91,10 @@ func updateMovie(w http.ResponseWriter, r *http.Request){
 		}
 	}
 }
+=======
+	json.NewEncoder(w).Encode(item)
+} 
+>>>>>>> refs/remotes/origin/main
 
 func main(){
 	r := mux.NewRouter()
